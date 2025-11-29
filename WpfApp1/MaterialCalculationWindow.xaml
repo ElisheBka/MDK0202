@@ -1,0 +1,98 @@
+﻿<Window x:Class="WpfApp1.MaterialCalculationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Расчет материалов" Height="450" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Расчет необходимого количества материалов" 
+                   FontSize="14" FontWeight="Bold" Margin="0,0,0,15"/>
+
+        <!-- Параметры расчета -->
+        <GroupBox Grid.Row="1" Header="Параметры расчета" Margin="0,0,0,10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="5">
+                    <!-- Информация о продукте -->
+                    <GroupBox Header="Информация о продукте" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Продукт:" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtProductName" Margin="0,2,0,5"/>
+                            <TextBlock Text="Доступное количество:" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtAvailableQuantity" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Параметры для расчета -->
+                    <GroupBox Header="Типы" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Тип продукции *" Margin="0,2,0,2"/>
+                            <ComboBox x:Name="cmbProductType" Height="25" Margin="0,0,0,5"/>
+
+                            <TextBlock Text="Тип материала *" Margin="0,2,0,2"/>
+                            <ComboBox x:Name="cmbMaterialType" Height="25" Margin="0,0,0,5"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Количества" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Требуемое количество продукции *" Margin="0,2,0,2"/>
+                            <TextBox x:Name="txtRequiredQuantity" Height="25" Margin="0,0,0,5"
+                                    PreviewTextInput="NumericTextBox_PreviewTextInput"/>
+
+                            <TextBlock Text="Количество на складе *" Margin="0,2,0,2"/>
+                            <TextBox x:Name="txtWarehouseQuantity" Height="25" Margin="0,0,0,5"
+                                    PreviewTextInput="NumericTextBox_PreviewTextInput"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Параметры продукции" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Параметр 1 (вещественное число) *" Margin="0,2,0,2"/>
+                            <TextBox x:Name="txtParameter1" Height="25" Margin="0,0,0,5"
+                                    PreviewTextInput="NumericTextBox_PreviewTextInput"/>
+
+                            <TextBlock Text="Параметр 2 (вещественное число) *" Margin="0,2,0,2"/>
+                            <TextBox x:Name="txtParameter2" Height="25" Margin="0,0,0,5"
+                                    PreviewTextInput="NumericTextBox_PreviewTextInput"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <TextBlock Text="* - обязательные поля" FontStyle="Italic" Foreground="Gray"/>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <!-- Результат -->
+        <GroupBox Grid.Row="2" Header="Результат расчета" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Необходимое количество материала:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox Grid.Column="1" x:Name="txtResult" IsReadOnly="True" Background="LightGray" 
+                        FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnCalculate" Content="Рассчитать" Click="btnCalculate_Click" 
+                    Margin="5" Padding="15,5" Background="#FF3498DB" Foreground="White"/>
+            <Button x:Name="btnClose" Content="Закрыть" Click="btnClose_Click" 
+                    Margin="5" Padding="15,5"/>
+        </StackPanel>
+    </Grid>
+</Window>

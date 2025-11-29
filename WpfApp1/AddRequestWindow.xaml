@@ -1,0 +1,69 @@
+﻿<Window x:Class="WpfApp1.AddRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Новая заявка" Height="500" Width="600">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Выбор партнера -->
+        <GroupBox Grid.Row="0" Header="Партнер" Margin="0,0,0,10">
+            <ComboBox x:Name="cmbPartners" DisplayMemberPath="Name"/>
+        </GroupBox>
+
+        <!-- Добавление продукции -->
+        <GroupBox Grid.Row="1" Header="Добавить продукцию" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Column="0" x:Name="cmbProducts" DisplayMemberPath="Name" Margin="0,0,5,0"/>
+                <TextBox Grid.Column="1" x:Name="txtQuantity" Text="1" Width="40" Margin="0,0,5,0"/>
+                <Button Grid.Column="2" x:Name="btnAddProduct" Content="Добавить" Click="btnAddProduct_Click" Margin="0,0,5,0"/>
+                <TextBlock Grid.Column="3" x:Name="txtProductPrice" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Список добавленной продукции -->
+        <GroupBox Grid.Row="2" Header="Добавленная продукция" Margin="0,0,0,10">
+            <DataGrid x:Name="dgSelectedProducts" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Продукт" Binding="{Binding ProductName}" Width="*"/>
+                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="80"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding UnitPrice, StringFormat={}{0:N2}}" Width="100"/>
+                    <DataGridTextColumn Header="Сумма" Binding="{Binding TotalPrice, StringFormat={}{0:N2}}" Width="100"/>
+                    <DataGridTemplateColumn Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить" Click="btnRemoveProduct_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Итоговая сумма -->
+        <TextBlock Grid.Row="3" x:Name="txtTotal" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <!-- Кнопки сохранения/отмены -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnSave" Content="Сохранить" Click="btnSave_Click" Margin="5" Padding="10,5"/>
+            <Button x:Name="btnCancel" Content="Отмена" Click="btnCancel_Click" Margin="5" Padding="10,5"/>
+        </StackPanel>
+    </Grid>
+</Window>
